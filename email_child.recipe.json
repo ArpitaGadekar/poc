@@ -1,0 +1,81 @@
+{
+  "name": "email_child",
+  "description": "When there is a function call, do action",
+  "version": 3,
+  "private": false,
+  "concurrency": 1,
+  "code": {
+    "number": 0,
+    "provider": "workato_recipe_function",
+    "name": "execute",
+    "as": "3bbf317e",
+    "title": null,
+    "description": null,
+    "keyword": "trigger",
+    "dynamicPickListSelection": {
+    },
+    "toggleCfg": {
+    },
+    "input": {
+      "parameters_schema_json": "[{\"control_type\":\"text\",\"label\":\"Error type\",\"name\":\"error_type\",\"type\":\"string\",\"optional\":true},{\"control_type\":\"text\",\"label\":\"Error message\",\"name\":\"error_message\",\"type\":\"string\",\"optional\":true}]"
+    },
+    "extended_output_schema": [
+      {
+        "label": "Parameters",
+        "name": "parameters",
+        "properties": [
+          {
+            "control_type": "text",
+            "label": "Error type",
+            "name": "error_type",
+            "type": "string",
+            "optional": true
+          },
+          {
+            "control_type": "text",
+            "label": "Error message",
+            "name": "error_message",
+            "type": "string",
+            "optional": true
+          }
+        ],
+        "type": "object"
+      }
+    ],
+    "block": [
+      {
+        "number": 1,
+        "provider": "email",
+        "name": "send_mail",
+        "as": "5a3bc9a0",
+        "keyword": "action",
+        "dynamicPickListSelection": {
+        },
+        "toggleCfg": {
+        },
+        "input": {
+          "email_type": "html",
+          "to": "#{_('data.workato.job_context.user_email')}",
+          "subject": "#{_('data.workato.job_context.recipe_name')}",
+          "body": "<!DOCTYPE html>\n<html>\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <style>\n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n        width: 100%;\n        border: 1px solid #ddd;\n      }\n      th,\n      td {\n        text-align: left;\n        padding: 8px;\n      }\n      tr:nth-child(even) {\n        background-color: #f2f2f2\n      }\n    </style>\n  </head>\n  <body>\n    <div style=\"overflow-x:auto;\">\n      <table>\n        <tr>\n          <th>Field</th>\n          <th>Details</th>\n        </tr>\n        <tr>\n          <td>Recipe Name</td>\n          <td> #{_('data.workato.job_context.recipe_name')}</td>\n        </tr>\n        <tr>\n          <td>Recipe URL</td>\n          <td>\n            <a href=#{_('data.workato.job_context.recipe_url')}> Recipe name Properties\n          </td>\n        </tr>\n        <tr>\n          <td>Job URL</td>\n          <td>\n            <a href=#{_('data.workato.job_context.job_url')}> Job ID Properties </>\n          </td>\n        </tr>\n        <tr>\n          <td>Job ID</td>\n          <td> #{_('data.workato.job_context.job_id')}</td>\n        </tr>\n        <tr>\n          <td>Job Date/Time</td>\n          <td> #{_('data.workato.job_context.job_created_at')}</td>\n        </tr>\n        <tr>\n          <td>Error Message</td>\n          <td> #{_('data.workato_recipe_function.3bbf317e.parameters.error_message')}</td>\n        </tr>\n        <tr>\n          <td>Error Type</td>\n          <td>#{_('data.workato_recipe_function.3bbf317e.parameters.error_type')}</td>\n        </tr>\n        <tr>\n          <td>Error UUID</td>\n          <td> Error UUID Step 63</td>\n        </tr>\n      </table>\n    </div>\n  </body>\n</html>\n"
+        },
+        "uuid": "3451a530-11c4-4c01-bb73-ed93ae68bfd0"
+      }
+    ],
+    "uuid": "4c8b3207-67b6-4dcb-89bf-a6f61e0170ae"
+  },
+  "config": [
+    {
+      "keyword": "application",
+      "provider": "workato_recipe_function",
+      "skip_validation": false,
+      "account_id": null
+    },
+    {
+      "keyword": "application",
+      "provider": "email",
+      "skip_validation": false,
+      "account_id": null
+    }
+  ]
+}
